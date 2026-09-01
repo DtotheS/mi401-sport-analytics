@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="MI 401: Topics in Information Science (W) — Sport Analytics, Fall 2026">
+  <title>MI 401 Sport Analytics | Fall 2026</title>
+  <style>
+    :root {
+      --msu-green: #18453b;
+      --msu-green-dark: #10382f;
+      --msu-green-soft: #e9f1ee;
+      --ink: #1f2a27;
+      --muted: #5b6864;
+      --line: #d7e0dd;
+      --paper: #ffffff;
+      --page: #f5f7f6;
+      --accent: #b9975b;
+      --shadow: 0 16px 40px rgba(24, 69, 59, 0.09);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 76px;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--page);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--msu-green);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    a:hover {
+      color: var(--msu-green-dark);
+      text-decoration-thickness: 2px;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 100;
+      padding: 10px 14px;
+      color: #fff;
+      background: var(--msu-green-dark);
+      border-radius: 8px;
+      transform: translateY(-160%);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .site-header {
+      color: #fff;
+      background:
+        radial-gradient(circle at 88% 12%, rgba(185, 151, 91, 0.28), transparent 28%),
+        linear-gradient(135deg, var(--msu-green-dark), var(--msu-green));
+      border-bottom: 5px solid var(--accent);
+    }
+
+    .hero {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 54px 0 48px;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.84;
+    }
+
+    h1 {
+      max-width: 100%;
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.85rem);
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+    }
+
+    .subtitle {
+      margin: 14px 0 0;
+      color: #f3f6f5;
+      font-size: clamp(1.25rem, 2.6vw, 1.75rem);
+      font-style: italic;
+    }
+
+    .course-facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 32px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .course-facts li {
+      min-height: 92px;
+      padding: 16px 18px;
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.23);
+      border-radius: 12px;
+      backdrop-filter: blur(5px);
+    }
+
+    .course-facts strong,
+    .contact-grid dt {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .course-facts a {
+      color: #fff;
+      text-decoration-color: rgba(255, 255, 255, 0.58);
+    }
+
+    .course-facts a:hover,
+    .course-facts a:focus-visible {
+      color: #fff;
+      text-decoration-thickness: 2px;
+    }
+
+    .course-meta {
+      margin: 18px 0 0;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .course-meta span + span::before {
+      content: "•";
+      margin: 0 10px;
+      color: var(--accent);
+    }
+
+    .course-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 6px 18px rgba(17, 45, 38, 0.05);
+      backdrop-filter: blur(12px);
+    }
+
+    .course-nav ul {
+      display: flex;
+      gap: 4px;
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 10px 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      list-style: none;
+    }
+
+    .course-nav ul::-webkit-scrollbar {
+      display: none;
+    }
+
+    .course-nav a {
+      display: block;
+      padding: 7px 12px;
+      color: var(--ink);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .course-nav a:hover,
+    .course-nav a:focus-visible {
+      color: #fff;
+      background: var(--msu-green);
+      outline: none;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 40px));
+      margin: 34px auto 72px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      margin: 0 0 34px;
+      padding: 1px;
+      overflow: hidden;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-grid div {
+      padding: 17px 18px;
+      background: var(--paper);
+    }
+
+    .contact-grid dt {
+      color: var(--msu-green);
+    }
+
+    .contact-grid dd {
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .section {
+      margin-top: 26px;
+      padding: 30px clamp(20px, 4vw, 42px);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .section h2 {
+      margin: 0 0 20px;
+      color: var(--msu-green);
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .section h3 {
+      margin: 28px 0 10px;
+      color: var(--msu-green-dark);
+      font-size: 1.15rem;
+      line-height: 1.3;
+    }
+
+    .section p:first-of-type {
+      margin-top: 0;
+    }
+
+    .section p:last-child {
+      margin-bottom: 0;
+    }
+
+    ol,
+    ul {
+      padding-left: 1.35rem;
+    }
+
+    .section li + li {
+      margin-top: 8px;
+    }
+
+    .workflow-list {
+      display: grid;
+      gap: 13px;
+      padding: 0;
+      list-style: none;
+      counter-reset: workflow;
+    }
+
+    .workflow-list li {
+      position: relative;
+      margin: 0;
+      padding: 15px 18px 15px 55px;
+      background: var(--msu-green-soft);
+      border-radius: 12px;
+      counter-increment: workflow;
+    }
+
+    .workflow-list li::before {
+      content: counter(workflow);
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      display: grid;
+      width: 25px;
+      height: 25px;
+      color: #fff;
+      background: var(--msu-green);
+      border-radius: 50%;
+      font-size: 0.8rem;
+      font-weight: 800;
+      place-items: center;
+    }
+
+    .notice {
+      margin: 18px 0 0;
+      padding: 14px 16px;
+      background: #fbf7ed;
+      border-left: 4px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      font-size: 0.95rem;
+    }
+
+    caption {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    th,
+    td {
+      padding: 13px 14px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+    }
+
+    thead th {
+      color: #fff;
+      background: var(--msu-green);
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f8faf9;
+    }
+
+    tbody tr:last-child th,
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .schedule-table {
+      min-width: 760px;
+    }
+
+    .schedule-table th:first-child,
+    .schedule-table td:first-child {
+      width: 70px;
+      text-align: center;
+    }
+
+    .schedule-table th:nth-child(2),
+    .schedule-table td:nth-child(2) {
+      width: 140px;
+      white-space: nowrap;
+    }
+
+    .assignment {
+      color: var(--msu-green-dark);
+      font-weight: 700;
+    }
+
+    .assessment-table th:nth-child(1) {
+      width: 22%;
+    }
+
+    .assessment-table {
+      min-width: 720px;
+    }
+
+    .assessment-table th:nth-child(2),
+    .assessment-table td:nth-child(2) {
+      width: 90px;
+      text-align: center;
+      font-weight: 800;
+    }
+
+    .grading-table th,
+    .grading-table td {
+      text-align: center;
+    }
+
+    .grading-table {
+      min-width: 520px;
+    }
+
+    .policy-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .policy-card {
+      padding: 20px;
+      background: #f8faf9;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .policy-card h3 {
+      margin-top: 0;
+    }
+
+    .resource-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 15px;
+      margin-top: 14px;
+    }
+
+    .resource-links a {
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 24px 20px 34px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    footer a {
+      font-weight: 700;
+    }
+
+    @media (max-width: 780px) {
+      .hero,
+      main {
+        width: min(100% - 24px, 1120px);
+      }
+
+      .hero {
+        padding-top: 40px;
+      }
+
+      .course-facts,
+      .contact-grid,
+      .policy-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .course-facts li {
+        min-height: 109px;
+      }
+
+      .section {
+        padding: 24px 18px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        font-size: 10.5pt;
+      }
+
+      .course-nav,
+      .skip-link,
+      footer {
+        display: none;
+      }
+
+      .site-header {
+        color: #000;
+        background: #fff;
+        border-bottom: 2px solid var(--msu-green);
+      }
+
+      .hero,
+      main {
+        width: 100%;
+      }
+
+      .hero {
+        padding: 20px 0;
+      }
+
+      .course-facts li {
+        color: #000;
+        border-color: #bbb;
+      }
+
+      .subtitle {
+        color: #333;
+      }
+
+      .section,
+      .contact-grid {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+
+      a {
+        color: #000;
+        text-decoration: none;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="hero">
+      <p class="eyebrow">Michigan State University · Department of Media and Information</p>
+      <h1>MI 401: Topics in Information Science (W)</h1>
+      <p class="subtitle">Sport Analytics</p>
+
+      <ul class="course-facts" aria-label="Course meeting information">
+        <li><strong>Meets</strong>Tuesdays &amp; Thursdays<br>2:40–4:00 p.m.</li>
+        <li><strong>Location</strong><a href="https://maps.app.goo.gl/rk5MwxDCvaXZsGiEA" target="_blank" rel="noopener noreferrer">Student Rec and Wellness 1005</a></li>
+        <li><strong>Instructor</strong>Dr. Sian Lee</li>
+      </ul>
+
+      <p class="course-meta"><span>Fall 2026</span><span>3 credits</span><span>In person</span></p>
+    </div>
+  </header>
+
+  <nav class="course-nav" aria-label="Course page sections">
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#objectives">Objectives</a></li>
+      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="#coursework">Coursework</a></li>
+      <li><a href="#grading">Grading</a></li>
+      <li><a href="#policies">Policies</a></li>
+      <li><a href="#support">Support</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+    <dl class="contact-grid" aria-label="Instructor contact information">
+      <div>
+        <dt>Email</dt>
+        <dd><a href="mailto:Leesian@msu.edu">Leesian@msu.edu</a></dd>
+      </div>
+      <div>
+        <dt>Office</dt>
+        <dd><a href="https://maps.app.goo.gl/vgPkfzck16o6yZpr6" target="_blank" rel="noopener noreferrer">CAS Building, Room 419</a></dd>
+      </div>
+      <div>
+        <dt>Office hours</dt>
+        <dd>Wednesday, 2:00–4:00 p.m., or by appointment via email</dd>
+      </div>
+    </dl>
+
+    <section class="section" id="overview">
+      <h2>Course overview</h2>
+      <p>Sport analytics brings together data, models, and analytical tools to study questions across the sports domain. This course introduces how sports data are collected, prepared, analyzed, visualized, and communicated. Applications include team performance, player evaluation, sport media, sport business, and fan engagement, with examples from multiple sports.</p>
+      <p>Models will be introduced through their purpose, basic logic, outputs, and limitations rather than advanced mathematics or deep theoretical treatment. Class time will emphasize guided, hands-on use of accessible tools and interpretation of results. These skills are useful for sport analytics and transferable to broader careers in data science and analytics. No prior programming experience or sport analytics background is assumed, and no programming is required.</p>
+
+      <h3>Prerequisites and recommended background</h3>
+      <p>MI 101 and completion of the Tier I writing requirement. MI 304 is recommended or may be taken concurrently.</p>
+    </section>
+
+    <section class="section" id="objectives">
+      <h2>Learning objectives</h2>
+      <ol>
+        <li>Identify useful analytical questions across sport performance, player evaluation, media, business, and fan engagement.</li>
+        <li>Locate sport datasets and evaluate their source, structure, quality, privacy considerations, limitations, and appropriate use.</li>
+        <li>Prepare small and medium-sized datasets for analysis using Excel.</li>
+        <li>Use selected supervised and unsupervised machine-learning models and interpret their outputs, basic validation results, uncertainty, and limitations.</li>
+        <li>Conduct introductory text analysis and structured video coding, and explain what each method can and cannot show.</li>
+        <li>Create effective visualizations, dashboards, and data stories for nontechnical audiences.</li>
+        <li>Communicate analytical findings clearly and revise the work into a portfolio-ready product relevant to sport analytics or broader analytics careers.</li>
+      </ol>
+    </section>
+
+    <section class="section" id="schedule">
+      <h2>Weekly schedule</h2>
+      <p>This schedule will be updated throughout the semester. Please check this page regularly for the latest information.</p>
+
+      <div class="table-wrap">
+        <table class="schedule-table">
+          <caption>MI 401 weekly course schedule</caption>
+          <thead>
+            <tr>
+              <th scope="col">Week</th>
+              <th scope="col">Date</th>
+              <th scope="col">Topic</th>
+              <th scope="col">Assignment</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- WEEKLY SCHEDULE: Copy the row below and edit its five cells to add a class meeting. -->
+            <tr>
+              <td>1</td>
+              <td>09/01 (Tue.)</td>
+              <td>Course Overview</td>
+              <td class="assignment">Assignment 1 — Due: 09/07 (Mon.)</td>
+              <td></td>
+            </tr>
+            <!-- END WEEKLY SCHEDULE -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="coursework">
+      <h2>Course content and learning approach</h2>
+      <p>The course follows an applied workflow rather than a fixed weekly sequence:</p>
+      <ol class="workflow-list">
+        <li><strong>Data discovery and collection.</strong> A brief introduction to finding sport datasets and to common collection methods, including official league/team sources, Kaggle, APIs, surveys, sensors, tracking systems, social media, and video.</li>
+        <li><strong>Data preparation.</strong> Cleaning, recoding, joining, documenting, and checking data in Excel.</li>
+        <li><strong>Machine learning.</strong> An applied introduction to selected supervised models for classification or prediction and unsupervised models for clustering or pattern discovery, including basic model comparison, validation, and interpretation in WEKA. Emphasis is on what models do and how to read their outputs rather than derivations or deep theory.</li>
+        <li><strong>Text and video analysis.</strong> Exploratory text analysis in Voyant and structured event coding in a browser-based video tool, with a short computer-vision demonstration when useful.</li>
+        <li><strong>Visualization and communication.</strong> Charts, dashboards, model summaries, analytical findings, and data stories in Tableau.</li>
+        <li><strong>Critical understanding of analytics.</strong> Data quality, ethics, privacy, labor, fairness, accessibility, uncertainty, and the limits of analytical models.</li>
+      </ol>
+      <p>Examples, cases, and datasets will draw from different sports, countries, competition levels, and industry settings. Students do not need to be sport experts or sport fans.</p>
+
+      <h3>Materials and technology</h3>
+      <p>There is no required textbook. Short readings, cases, videos, datasets, and tutorials will be provided through D2L at no additional cost.</p>
+      <ol>
+        <li><strong>Computer access.</strong> Bring a laptop to class meetings that include labs. If reliable computer access is a barrier, contact the instructor early so an alternative can be arranged.</li>
+        <li><strong>Core tools.</strong> Microsoft Excel through MSU Microsoft 365; Weka.ai (web-based) and/or the WEKA desktop application; Tableau Public or an approved local alternative; Voyant Tools; and an instructor-selected browser-based video annotation tool. Setup and access instructions will be provided during the course.</li>
+        <li><strong>Accounts and accessibility.</strong> Some third-party tools may require a free account. If an account, platform, accessibility, or privacy requirement creates a barrier, an equivalent alternative will be provided.</li>
+      </ol>
+      <p><strong>MSU Microsoft 365:</strong> <a href="https://tech.msu.edu/technology/collaborative-tools/spartan365/">Access information and software</a></p>
+    </section>
+
+    <section class="section" id="grading">
+      <h2>Assessment and grading</h2>
+      <div class="table-wrap">
+        <table class="assessment-table">
+          <caption>Assessment categories and course weights</caption>
+          <thead>
+            <tr>
+              <th scope="col">Assessment</th>
+              <th scope="col">Weight</th>
+              <th scope="col">What it includes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Final project</th>
+              <td>40%</td>
+              <td>The final project includes a proposal (research question and data plan), data analysis and modeling, visualizations, a presentation, and a final report. Whether projects will be completed individually or in small teams will be specified in the detailed project guidelines.</td>
+            </tr>
+            <tr>
+              <th scope="row">Assignments</th>
+              <td>30%</td>
+              <td>Assignments will be assigned most weeks. Detailed instructions and due dates will be posted in D2L.</td>
+            </tr>
+            <tr>
+              <th scope="row">In-class activities &amp; labs</th>
+              <td>20%</td>
+              <td>Guided practice with Excel, Weka.ai/WEKA, Tableau, Voyant, and video analysis. Normally completed during class. An unexcused absence receives a zero; approved alternatives are provided for protected or excused absences when feasible.</td>
+            </tr>
+            <tr>
+              <th scope="row">Class participation</th>
+              <td>10%</td>
+              <td>Preparation, discussion, peer feedback, collaboration, and constructive engagement.</td>
+            </tr>
+            <tr>
+              <th scope="row">Total</th>
+              <td>100%</td>
+              <td>There is no final exam.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Grading scale</h3>
+      <p>Final course percentages will be rounded to one decimal place before the grading scale is applied.</p>
+      <div class="table-wrap">
+        <table class="grading-table">
+          <caption>Final course grading scale</caption>
+          <thead>
+            <tr>
+              <th scope="col">Grade</th>
+              <th scope="col">Course %</th>
+              <th scope="col">Grade</th>
+              <th scope="col">Course %</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">4.0</th><td>93.0–100.0</td><th scope="row">2.0</th><td>73.0–76.9</td></tr>
+            <tr><th scope="row">3.5</th><td>87.0–92.9</td><th scope="row">1.5</th><td>67.0–72.9</td></tr>
+            <tr><th scope="row">3.0</th><td>83.0–86.9</td><th scope="row">1.0</th><td>60.0–66.9</td></tr>
+            <tr><th scope="row">2.5</th><td>77.0–82.9</td><th scope="row">0.0</th><td>Below 60.0</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Submitting work and deadlines</h3>
+      <p>Submit assignments and project materials through the designated D2L folder by the posted deadline. Assignment-specific instructions, rubrics, and due dates in D2L are part of the course requirements. Late submissions will receive a 50% deduction from the score earned unless an extension, accommodation, or excused circumstance has been approved by the instructor.</p>
+      <p>If illness, emergency, or an approved university activity affects a deadline, contact the instructor as soon as practical.</p>
+    </section>
+
+    <section class="section" id="policies">
+      <h2>Course policies and expectations</h2>
+      <div class="policy-grid">
+        <article class="policy-card">
+          <h3>Attendance and participation</h3>
+          <p>Regular attendance matters because class sessions include hands-on labs, analytical activities, discussion, and peer feedback. Attendance is not graded separately. In-class activity credit is based on submitted work, while participation credit reflects preparation and constructive engagement.</p>
+          <p>If you must miss class, notify the instructor as soon as practical and obtain notes or materials. An unexcused absence receives a zero for activities completed during that class. For absences protected by university policy or otherwise approved by the instructor, a reasonable alternative will be provided when feasible.</p>
+        </article>
+
+        <article class="policy-card">
+          <h3>Communication</h3>
+          <p>D2L is the official source for announcements, materials, assignment instructions, and due dates. Students should enable notifications and check the course site regularly. The instructor normally responds to email within two business days; messages sent near a deadline may not receive an immediate response.</p>
+        </article>
+
+        <article class="policy-card">
+          <h3>Generative AI and analytical assistance</h3>
+          <p>Unless an assignment states otherwise, generative AI may be used to brainstorm questions, clarify concepts, troubleshoot software, and improve wording. It may not replace the student’s analysis, fabricate data or sources, or generate work that the student cannot explain. Students remain responsible for checking accuracy, protecting data, and meeting assignment requirements.</p>
+          <p>When generative AI materially contributes to submitted work, include a brief disclosure naming the tool, describing how it was used, and identifying what the student verified or changed. Assignment-specific directions may permit, limit, or prohibit AI use.</p>
+        </article>
+
+        <article class="policy-card">
+          <h3>Academic integrity and collaboration</h3>
+          <p>Students are expected to submit original work and clearly credit data sources, ideas, quotations, code, templates, outside help, and permitted AI assistance. Collaboration is encouraged when an activity allows it, but each student must complete individually assigned work and be able to explain submitted analyses. Fabrication, falsification, plagiarism, unauthorized collaboration, and presenting another person’s work as one’s own are academic misconduct under MSU policy.</p>
+          <p><strong>Policy:</strong> <a href="https://reg.msu.edu/academicprograms/TextAll.aspx?Section=112">Integrity of Scholarship and Grades</a></p>
+        </article>
+
+        <article class="policy-card">
+          <h3>Religious observance and other excusable absences</h3>
+          <p>Students who need to miss class or other coursework for a religious observance must notify the instructor at least two weeks before the observance day. Reasonable arrangements will be made without academic penalty.</p>
+          <p>Students seeking a grief absence should follow MSU’s Grief Absence Policy, including notifying the appropriate college official no later than one week after learning of the situation. Reasonable arrangements will be made for verified grief absences. Students affected by illness, emergency, or an approved university activity should contact the instructor as soon as practicable.</p>
+          <div class="resource-links">
+            <a href="https://reg.msu.edu/ROInfo/Notices/ReligiousPolicy.aspx">Religious Observance Policy</a>
+            <a href="https://reg.msu.edu/roinfo/notices/griefabsence.aspx">Grief Absence Policy</a>
+          </div>
+        </article>
+
+        <article class="policy-card">
+          <h3>Learning environment and course materials</h3>
+          <p>Students are expected to contribute to a respectful learning environment in which different sport knowledge, technical preparation, identities, experiences, and viewpoints are welcomed. Course recordings and materials are for enrolled students’ course-related learning and may not be posted, sold, or distributed outside the class without permission from the instructor and any identifiable participants.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="support">
+      <h2>Accessibility, reporting, and student support</h2>
+
+      <h3>Accessibility and accommodations</h3>
+      <p>Michigan State University is committed to providing access and inclusion in all programs, services, and activities. Students who need accommodations should contact the Resource Center for Persons with Disabilities (RCPD) at 517-884-RCPD or visit the <a href="https://uhw.msu.edu/health-and-wellbeing-services/accessibility-and-accommodations/rcpd">RCPD website</a>.</p>
+      <p>Once approved, students should send their Accommodation Letter to the instructor through the AccessMSU student portal as soon as possible. Additional communication among the student, instructor, and RCPD Access Specialist may be necessary to implement accommodations appropriately.</p>
+
+      <h3>Confidentiality, reporting, and student support</h3>
+      <p>The instructor will respect students’ privacy but cannot promise confidentiality when university policy or law requires a report, including some disclosures involving relationship violence, sexual misconduct, stalking, child abuse or neglect, or credible threats of harm. Students seeking confidential support may contact MSU Counseling &amp; Psychiatric Services or the Center for Survivors. Additional information is available through MSU’s confidential-resources and reporting-options pages.</p>
+      <div class="resource-links">
+        <a href="https://caps.msu.edu/">Counseling &amp; Psychiatric Services (CAPS)</a>
+        <a href="https://centerforsurvivors.msu.edu/">Center for Survivors</a>
+        <a href="https://civilrights.msu.edu/file-a-report/confidential-resources.html">Confidential resources</a>
+        <a href="https://civilrights.msu.edu/file-a-report/index.html">Reporting options</a>
+      </div>
+
+      <h3>Syllabus and course changes</h3>
+      <p>The instructor may adjust the order of topics, tools, readings, or due dates in response to class progress, technology availability, or unforeseen circumstances. Changes will be announced in class and posted in D2L with reasonable notice.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>MI 401 · Sport Analytics · Fall 2026 · <a href="#top">Back to top</a></p>
+  </footer>
+</body>
+</html>
